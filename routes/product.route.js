@@ -8,6 +8,13 @@ ProductRoute.get("/", async (req, res) => {
   res.send(AllUsers);
 });
 
+ProductRoute.get("/:ID", async (req, res) => {
+  const { ID } = req.params;
+  const product = await ProductModel.findOne({ _id: ID });
+  console.log({ product });
+  res.send(product);
+});
+
 ProductRoute.post("/", async (req, res) => {
   const NewProduct = new ProductModel(req.body);
   await NewProduct.save();
@@ -16,7 +23,6 @@ ProductRoute.post("/", async (req, res) => {
 
 ProductRoute.patch("/:ID", async (req, res) => {
   const { ID } = req.params;
-  y;
 
   ProductModel.findByIdAndUpdate(ID, req.body, function (err, docs) {
     if (err) {
@@ -29,7 +35,6 @@ ProductRoute.patch("/:ID", async (req, res) => {
 
 ProductRoute.delete("/:ID", async (req, res) => {
   const { ID } = req.params;
-
   ProductModel.findByIdAndDelete(ID, function (err, docs) {
     if (err) {
       res.send({ msg: "Error in deleting data" });
