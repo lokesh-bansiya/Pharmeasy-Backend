@@ -7,6 +7,7 @@ const app = express();
 const port = 8080;
 const cors = require("cors");
 const { dbconnection } = require("./config/db");
+const { GridDataRoute } = require("./routes/gridData");
 
 app.use(
   cors({
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/login", LoginRoute);
 app.use("/signup", SignupRoute);
 app.use("/products", ProductRoute);
+app.use("/crypto", GridDataRoute);
 app.get("/", (req, res) => res.send("Home Route"));
 
 app.listen(port, async () => {
